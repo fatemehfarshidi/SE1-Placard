@@ -9,7 +9,7 @@ This project is a SAAS for university student in order to publish promotions suc
 ```angular2html
 docker-compose -d --build
 ```
-Browse to http://localhost:1323 and you should see the landing page. 
+Browse to `http://localhost` and you should see the landing page. 
 
 
 
