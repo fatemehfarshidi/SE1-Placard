@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Post(models.Model):
     TYPE_BORROW = 'B'
     TYPE_SELL = 'S'
