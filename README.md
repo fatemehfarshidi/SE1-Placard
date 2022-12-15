@@ -9,7 +9,7 @@ This project is a SAAS for university student in order to publish promotions suc
 ### building image
 ```
 docker build -t placard .
-docker run placard -d 
+docker run -d placard 
 ```
 
 ### running docker-compose
