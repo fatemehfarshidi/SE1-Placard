@@ -4,4 +4,8 @@ from brick import views
 
 urlpatterns = [
     path("", views.hello),
+    path("register/", views.register_request, name="register"),
+    path("login/", views.login_request, name="login"),
+    path("posts/", views.post_list),
+    path('posts/<int:id>/', views.post_detail),
 ]
