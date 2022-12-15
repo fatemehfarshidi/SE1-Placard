@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import NewUserForm
-from django.contrib.auth import login, authenticate #add this
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm #add this
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ def register_request(request):
         messages.error(
             request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
-    return render(request=request, template_name="register/register.html", context={"register_form": form})
+    return render(request=request, template_name="accounts/register.html", context={"register_form": form})
 
 def login_request(request):
 	if request.method == "POST":
@@ -41,4 +41,4 @@ def login_request(request):
 		else:
 			messages.error(request,"Invalid username or password.")
 	form = AuthenticationForm()
-	return render(request=request, template_name="login/login.html", context={"login_form":form})
+	return render(request=request, template_name="accounts/login.html", context={"login_form":form})
