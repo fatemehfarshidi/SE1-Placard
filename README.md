@@ -9,12 +9,12 @@ This project is a SAAS for university student in order to publish promotions suc
 ### building image
 ```
 docker build -t placard .
-docker run -d placard 
+docker run placard -d 
 ```
 
 ### running docker-compose
 ```
-docker-compose up -d --build
+docker-compose up -d --build --force-recreate
 ```
 
 ### makemigrations and migrate after running docker-compose
