@@ -10,3 +10,4 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ('type',)
     ordering = ('title',)
     search_fields = ('title','type')
+    
