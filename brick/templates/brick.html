@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <h2>BRICK</h2>
+    <body>
+        {% if messages %}
+        <div id="messages">
+            {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+</div>
+{% endif %}
+    </body>
+</html>
