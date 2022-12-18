@@ -10,6 +10,7 @@ from .forms import NewUserForm
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .decorators import unauthenticated_user
 
 # Create your views here.
 
@@ -17,43 +18,37 @@ from rest_framework.response import Response
 def brick(request):
     return render(request=request, template_name="brick.html")
 
-
+@unauthenticated_user
 def register_request(request):
-	if request.user.is_authenticated:
-		return redirect("/brick/")
-	else:
-		form = NewUserForm()
-		if request.method == "POST":
-			form = NewUserForm(request.POST)
-			if form.is_valid():
-				form.save()
-				username = form.cleaned_data.get('username')
-				messages.success(request, f"New account created: {username}")
-				return redirect("login")
-		context = {"register_form": form}
-		return render(request=request, template_name="accounts/register.html", context=context)
+	form = NewUserForm()
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			messages.success(request, f"New account created: {username}")
+			return redirect("login")
+	context = {"register_form": form}
+	return render(request=request, template_name="accounts/register.html", context=context)
 
-
+@unauthenticated_user
 def login_request(request):
-	if request.user.is_authenticated:
-		return redirect("/brick/")
-	else:
-		if request.method == "POST":
-			form = AuthenticationForm(request, data=request.POST)
-			if form.is_valid():
-				username = form.cleaned_data.get('username')
-				password = form.cleaned_data.get('password')
-				user = authenticate(username=username, password=password)
-				if user is not None:
-					login(request, user)
-					return redirect("/brick/")
-				else:
-					messages.error(request,"Invalid username or password.")
+	if request.method == "POST":
+		form = AuthenticationForm(request, data=request.POST)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				return redirect("/brick/")
 			else:
 				messages.error(request,"Invalid username or password.")
-		form = AuthenticationForm()
-		context = {"login_form":form}
-		return render(request=request, template_name="accounts/login.html", context=context)
+		else:
+			messages.error(request,"Invalid username or password.")
+	form = AuthenticationForm()
+	context = {"login_form":form}
+	return render(request=request, template_name="accounts/login.html", context=context)
 
 def logoutUser(request):
 	logout(request)
