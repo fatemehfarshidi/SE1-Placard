@@ -29,6 +29,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     # user_id = models.PositiveIntegerField()
     type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=TYPE_SELL)
+    price = models.FloatField(null=True)
     description = models.TextField(null=True, blank=True)
     owner = models.ForeignKey(Customer , on_delete= models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)

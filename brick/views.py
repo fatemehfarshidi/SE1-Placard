@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Customer
 from .serializers import PostSerializer
 from .forms import NewUserForm
+from .models import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -15,8 +16,10 @@ from .decorators import unauthenticated_user
 # Create your views here.
 
 @login_required(login_url="/brick/login/")
-def brick(request):
-    return render(request=request, template_name="brick.html")
+def home_page(request):
+	posts = Post.objects.all()
+	context = {'posts': posts}
+	return render(request, template_name='brick.html', context=context)
 
 @unauthenticated_user
 def register_request(request):

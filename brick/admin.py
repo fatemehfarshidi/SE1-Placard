@@ -8,7 +8,7 @@ admin.site.register(models.Tag)
 # Register your models here.
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title','owner','type')
-    list_editable = ('type',)
+    list_display = ('title', 'price', 'owner','type')
+    list_editable = ('type', 'price')
     ordering = ('title',)
     search_fields = ('title','type', 'tags')
