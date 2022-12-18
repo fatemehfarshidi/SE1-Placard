@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from .models import Post, Customer
 from .serializers import PostSerializer
 from .forms import NewUserForm
 from rest_framework import status
@@ -24,10 +24,15 @@ def register_request(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
 		if form.is_valid():
-			form.save()
+			user = form.save()
 			username = form.cleaned_data.get('username')
+			# group = Group.objects.get(name='customer')
+			# user.groups.add(group)
+			Customer.objects.create(user=user, name=username)
+
 			messages.success(request, f"New account created: {username}")
 			return redirect("login")
+			
 	context = {"register_form": form}
 	return render(request=request, template_name="accounts/register.html", context=context)
 
