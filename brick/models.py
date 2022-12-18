@@ -26,4 +26,5 @@ class Post(models.Model):
     description = models.TextField(null=True, blank=True)
     type = models.CharField(
         max_length=1, choices=TYPE_CHOICES, default=TYPE_SELL)
+    user = models.ForeignKey(User , on_delete= models.CASCADE)
         
