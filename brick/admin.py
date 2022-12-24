@@ -3,7 +3,6 @@ from . import models
 
 
 admin.site.register(models.Customer)
-admin.site.register(models.Tag)
 
 # Register your models here.
 @admin.register(models.Post)
