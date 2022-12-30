@@ -1,0 +1,16 @@
+asgiref
+Django
+djangorestframework
+sqlparse
+psycopg2-binary
+django-cors-headers
+gunicorn
+asgiref
+autopep8
+djangorestframework-simplejwt
+pycodestyle
+PyJWT
+pytz
+sqlparse
+toml
+tzdata

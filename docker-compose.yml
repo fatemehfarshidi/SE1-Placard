@@ -1,33 +1,31 @@
 version: "3.9"
 
 services:
-  web:
-    container_name: app
-    build: .
-    command: python /code/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
+  django:
+    container_name: api
+    build:
+      context: ./api
     ports:
-      - "80:8000"
+      - 8000:8000
+    volumes:
+      - ./api:/api
     depends_on:
-      - db
-    networks:
-      - local-dev
+      - psql
 
-  db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+  react:
+    container_name: app
+    build:
+      context: ./app
     ports:
-      - "5432:5432"
+      - 3000:3000
+    volumes:
+      - ./app/src:/app/src
+
+  psql:
+    container_name: db
+    image: "postgres:14.1-alpine"
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
-    networks:
-      - local-dev
-
-networks:
-  local-dev:
-    external: true
 
 volumes:
   postgres_data:
