@@ -14,11 +14,10 @@ class Post(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    user_id = models.PositiveIntegerField()
     type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=TYPE_SELL)
     price = models.FloatField(null=True)
     description = models.TextField(null=True, blank=True)
-    user_field = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
@@ -50,7 +49,7 @@ class Phone_number(models.Model):
 
 
 class Email(models.Model):
-    email = models.CharField(max_length=200, null=True)
+    email = models.EmailField(unique=True, default="0")
 
     def __str__(self):
         return self.email
