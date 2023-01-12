@@ -1,23 +1,42 @@
 from django import forms
-from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import Post
 
+class CreatePostForm(forms.ModelForm):
 
-# Create your forms here.
+    class Meta:
+        model = Post
+        fields = ('title', 'type', 'price', 'description', 'contact_type',
+                  'contact_info', 'image', 'slug', 'date_created', 'user', 'pk')
+        read_only_fields = ('user', 'slug', 'date_created', 'pk')
 
-class NewUserForm(UserCreationForm):
-	email = forms.EmailField(required=True)
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if title == "":
+            raise forms.ValidationError(
+                'Please enter a title')
+        return title
 
-	class Meta:
-		model = User
-		fields = ("username", "email", "password1", "password2")
-        
+    def clean_price(self):
+        price = self.cleaned_data['price']
+        if price < 0:
+            raise forms.ValidationError(
+                'Please use a positive number')
+        return price
+    
+    def clean_contact_info(self):
+        contact_info = self.cleaned_data['contact_info']
+        if contact_info == "":
+            raise forms.ValidationError(
+                'Please enter your contact information')
+        return contact_info
+    
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        if description == "":
+            raise forms.ValidationError(
+                'Please enter a description')
+        return description
+    
+    
 
-	def save(self, commit=True):
-		user = super(NewUserForm, self).save(commit=False)
-		user.email = self.cleaned_data['email']
-		if commit:
-			user.save()
-		return user
 
