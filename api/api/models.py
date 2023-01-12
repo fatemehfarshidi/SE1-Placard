@@ -1,72 +1,59 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.conf import settings
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
+
+
+def upload_to(instance, filename):
+    return 'posts/{filename}'.format(filename=filename)
+
 
 class Post(models.Model):
-    TYPE_BORROW = 'B'
-    TYPE_SELL = 'S'
-    TYPE_COLLAB = 'C'
+
+    class PostObjects(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset()
 
     TYPE_CHOICES = [
-        (TYPE_BORROW, 'Borrow'),
-        (TYPE_SELL, 'Sell'),
-        (TYPE_COLLAB, 'Collab'),
+        ('Borrow', 'Borrow'),
+        ('Sell', 'Sell'),
+        ('Collab', 'Collab'),
     ]
 
-    title = models.CharField(max_length=255)
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=TYPE_SELL)
+    CONTACT_CHOICES = [
+        ('Phone number', 'Phone number'),
+        ('Telegram', 'Telegram'),
+        ('Email', 'Email'),
+        ('Other', 'Other'),
+    ]
+
+    title = models.CharField(max_length=250)
+    type = models.CharField(
+        max_length=20, choices=TYPE_CHOICES, default='Sell')
     price = models.FloatField(null=True)
     description = models.TextField(null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-    
+    contact_type = models.CharField(
+        max_length=20, choices=CONTACT_CHOICES, default='Phone number')
+    contact_info = models.CharField(max_length=250)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    image = models.ImageField(
+        _("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
+    slug = models.SlugField(
+        max_length=250, unique=True, blank=True)
+    date_created = models.DateTimeField(default=timezone.now)
+
+    objects = models.Manager()  # default manager
+    postobjects = PostObjects()  # custom manager
+
+    class Meta:
+        ordering = ('-date_created',)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        super(Post, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
-
-class Picture(models.Model):
-    # TO DO :
-    # blob
-    # id
-    pass
-
-class Post_Picture(models.Model):
-    # TO DO :
-    # post id
-    # picture id
-    pass
-
-class User_Picture(models.Model):
-    # TO DO :
-    # user id
-    # picture id
-    pass
-
-class Phone_number(models.Model):
-    phone_number = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.phone_number
-
-
-class Email(models.Model):
-    email = models.EmailField(unique=True, default="0")
-
-    def __str__(self):
-        return self.email
-
-
-class User_Email(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    email = models.ForeignKey(Email, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-
-class User_Phone_number(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    phone_number = models.ForeignKey(Phone_number, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-

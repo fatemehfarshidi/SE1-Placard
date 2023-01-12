@@ -4,6 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.utils.text import slugify
 from .models import *
 
 
@@ -21,6 +22,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
@@ -37,9 +39,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username']
-        )
+        user = User.objects.create(username=validated_data['username'])
 
         user.set_password(validated_data['password'])
         user.save()
@@ -50,4 +50,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ('title', 'type', 'price', 'description', 'contact_type',
+                  'contact_info', 'image', 'slug', 'date_created', 'user', 'pk')
+        read_only_fields = ('user', 'slug', 'date_created')
