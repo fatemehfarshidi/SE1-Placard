@@ -2,14 +2,12 @@ from django.contrib import admin
 from django.urls import path
 # from api import views
 from rest_framework_simplejwt.views import TokenRefreshView
-# from .views import PostList, PostDetail, CreatePost, EditPost, AuthorPostDetail, DeletePost
+from .views import home, create_post
 from django.views.generic import TemplateView
 
 app_name = 'api'
 
 urlpatterns = [
-
-    path('', TemplateView.as_view(template_name="Login.html")),
 
     # path('token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -28,5 +26,8 @@ urlpatterns = [
     # path('author/edit/postdetail/<int:pk>/', AuthorPostDetail.as_view(), name='authordetailpost'),
     # path('author/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
     # path('author/delete/<int:pk>/', DeletePost.as_view(), name='deletepost'),
+    
+    path('', home, name="home"),
+    path('createpost/<str:pk>', create_post, name='create_post'),
 
 ]

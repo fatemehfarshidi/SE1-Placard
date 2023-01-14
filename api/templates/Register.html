@@ -1,7 +1,9 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="Login.css">
+    <link rel="stylesheet" href="{% static '/css/Register.css' %}">
   </head>
   <header>
     <!-- {/* the logo in header */} -->
@@ -49,29 +51,36 @@
         </div>
         
 
-      <div class="Login-wrapper">
-          <form class="main-form">
-                <!-- {/* Other related texts & links */} -->
+      <div class="Register-wrapper">
+        <form class="main-form" method="POST" action=".">
+          {% csrf_token %}
           <div class="header-text">
-                <h4>به پلاکارد خوش آمدید</h4>
-                <div class="left-header">
-                      <h5>حساب کاربری ندارید؟</h5>
-                      <button id='btn1'>ثبت نام کنید</button>
-                </div>                
-            </div>
+            <h4>به پلاکارد خوش آمدید</h4>
+            <div class="left-header">
+                  <h5>حساب کاربری دارید؟</h5>
+                  <a href="{% url 'user:login' %}"> وارد شوید </a>
+            </div>                
+          </div>
             
-                <!-- {/* the login part */} -->
-            <div class='text-part'> 
-                <h1>ورود</h1>
-                <label htmlFor="email">نام کاربری خود را وارد کنید</label>                       
-                <input type='email' placeholder= "  Sonbol_32" />
-                    
-                <label htmlFor="password">رمزعبور خود را وارد کنید</label>
-                <input type='password' placeholder="  ********" />
+          <div class='text-part'> 
+            <h1>ثبت نام</h1>
+            
+            <label htmlFor="username">نام کاربری خود را وارد کنید</label>                       
+            {{register_form.username}}
 
-                <button id = "btn2"type="submit">ورود</button>
-            </div>
+            <label htmlFor="email">ایمیل خود را وارد کنید</label>                       
+            {{register_form.email}}
+
+            <label htmlFor="password">رمزعبور خود را وارد کنید</label>
+            {{register_form.password}}
+
+            <label htmlFor="password">تکرار رمزعبور خود را وارد کنید</label>
+            {{register_form.password2}}
+            
+            <input id="btn2" type="submit" value="ثبت نام">
+          </div>
         </form>
+        {{register_form.errors}}
       </div>
 
     </body>

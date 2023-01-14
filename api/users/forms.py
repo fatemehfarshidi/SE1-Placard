@@ -1,13 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Customer
-
-
-class UserLoginForm(AuthenticationForm):
-
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-
 
 class RegistrationForm(forms.ModelForm):
 
@@ -39,3 +32,15 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError(
                 'Please use another Email, that is already taken')
         return email
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': '  Sonbol_32'})
+        self.fields['email'].widget.attrs.update({'placeholder': '  Sonbol@aut.com'})
+        self.fields['password'].widget.attrs.update({'placeholder': '  ********'})
+        self.fields['password2'].widget.attrs.update({'placeholder': '  ********'})
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '  نام کاربری'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': '  رمز عبور'}))
