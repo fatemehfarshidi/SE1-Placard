@@ -32,7 +32,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     type = models.CharField(
         max_length=20, choices=TYPE_CHOICES, default='Sell')
-    price = models.FloatField(null=True)
+    price = models.IntegerField(null=True, default=0)
     description = models.TextField(null=True, blank=True)
     contact_type = models.CharField(
         max_length=20, choices=CONTACT_CHOICES, default='Phone number')

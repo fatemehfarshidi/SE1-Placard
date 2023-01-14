@@ -46,7 +46,14 @@
           {% for post in posts %}
           <div class="post-design">
             <a href="">{{post.title}}</a>
-            <h4>{{post.price}} تومان </h4>
+            <h4>
+              {% if post.price == 0 %}
+                رایگان
+              {% else %}
+                {{post.price}} تومان 
+              {% endif %}
+            </h4>
+            <h4> راه ارتباطی : {{post.contact_info}}</h4>
             <h4>{{post.date_created}}</h4>
           </div>
 
