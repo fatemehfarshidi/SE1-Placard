@@ -40,10 +40,13 @@ class CreatePostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'placeholder': '   نام محصول/ خدمت/ آگهی خود را وارد کنید   '})
-        self.fields['contact_info'].widget.attrs.update({'placeholder': '  شماره تماس/ ایدی تلگرام/ ایمیل    '})
-        self.fields['price'].widget.attrs.update({'placeholder': '   قیمت به تومان    '})
+        self.fields['title'].widget.attrs.update(
+            {'placeholder': '   نام محصول/ خدمت/ آگهی خود را وارد کنید   '})
+        self.fields['contact_info'].widget.attrs.update(
+            {'placeholder': '  شماره تماس/ ایدی تلگرام/ ایمیل    '})
+        self.fields['price'].widget.attrs.update(
+            {'placeholder': '   قیمت به تومان    '})
         self.fields['description'].widget.attrs.update({
             'id': 'description-input',
             'placeholder': ' جزئیات و نکات جالب توجه آگهی خود را کامل و دقیق بنویسید. نوشتن شمارهٔ تماس در متن آگهی مجاز نیست. حتماً به ساعات پاسخگویی خود اشاره کنید   '
-            })
+        })
