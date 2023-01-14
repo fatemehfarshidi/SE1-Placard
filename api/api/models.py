@@ -2,7 +2,7 @@ from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy
 from django.utils.text import slugify
 
 
@@ -40,7 +40,7 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     image = models.ImageField(
-        _("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
+        gettext_lazy("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
     slug = models.SlugField(
         max_length=250, unique=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)

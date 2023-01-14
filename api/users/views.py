@@ -1,5 +1,5 @@
 from .models import Customer
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,61 +13,44 @@ from .models import Customer
 
 @unauthenticated_user
 def register_view(request):
-    form = RegistrationForm()
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.username = form.cleaned_data.get('username')
-            user.email = form.cleaned_data.get('email')
-            user.set_password(form.cleaned_data.get('password'))
-			# group = Group.objects.get(name='customer')
-			# user.groups.add(group)
-            user.save()
+	form = RegistrationForm()
+	if request.method == "POST":
+		form = RegistrationForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			user.username = form.cleaned_data.get('username')
+			user.email = form.cleaned_data.get('email')
+			user.set_password(form.cleaned_data.get('password'))
+			
+			user.save()
+			login(request, user)
+			
+			messages.success(request, f"New account created: {user.username}")
+			
+			return redirect("home")
+			
+	context = {"register_form": form}
+	return render(request=request, template_name="Register.html", context=context)
 
-            messages.success(request, f"New account created: {username}")
-            return redirect("login")
-            
-    context = {"register_form": form}
-    return render(request=request, template_name="account/register.html", context=context)
+@unauthenticated_user
+def login_view(request):
 
-# class CustomUserCreate(APIView):
-#     permission_classes = [AllowAny]
-#     serializer_class = CustomUserSerializer
+	if request.method == 'POST':
+		username = request.POST.get('username')
+		password =request.POST.get('password')
 
-#     def get(self, request, *args, **kwargs):
-#         serializer = CustomUserSerializer(Customer.objects.all(), many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+		user = authenticate(request, username=username, password=password)
 
-#     def post(self, request, format='json'):
-#         serializer = CustomUserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             user = serializer.save()
-#             if user:
-#                 json = serializer.data
-#                 return Response(json, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		if user is not None:
+			login(request, user)
+			return redirect('home')
+		else:
+			messages.info(request, 'Username OR password is incorrect')
 
-# @unauthenticated_user
-# def login(request):
-# 	if request.method == "POST":
-# 		form = AuthenticationForm(request, data=request.POST)
-# 		if form.is_valid():
-# 			username = form.cleaned_data.get('username')
-# 			password = form.cleaned_data.get('password')
-# 			user = authenticate(username=username, password=password)
-# 			if user is not None:
-# 				login(request, user)
-# 				return redirect("/brick/")
-# 			else:
-# 				messages.error(request,"Invalid username or password.")
-# 		else:
-# 			messages.error(request,"Invalid username or password.")
-# 	form = AuthenticationForm()
-# 	context = {"login_form":form}
-# 	return render(request=request, template_name="accounts/login.html", context=context)
+	context = {}
+	return render(request, 'Login.html', context)
 
-# def logoutUser(request):
-# 	logout(request)
-# 	messages.success(request, "You have successfully logged out.")
-# 	return redirect("/user/login/")
+def logout_user(request):
+	logout(request)
+	messages.success(request, "You have successfully logged out.")
+	return redirect("login")

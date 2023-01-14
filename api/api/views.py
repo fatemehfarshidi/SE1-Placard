@@ -3,62 +3,40 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .serializers import MyTokenObtainPairSerializer, RegisterSerializer, PostSerializer
+from .forms import CreatePostForm
 from .models import Post
+from users.models import Customer
 
 # class MyTokenObtainPairView(TokenObtainPairView):
 #     serializer_class = MyTokenObtainPairSerializer
 
-# @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
-# def testEndPoint(request):
-#     if request.method == 'GET':
-#         data = f"Congratulation {request.user}, your API just responded to GET request"
-#         return Response({'response': data}, status=status.HTTP_200_OK)
-#     elif request.method == 'POST':
-#         text = request.POST.get('text')
-#         data = f'Congratulation your API just responded to POST request with text: {text}'
-#         return Response({'response': data}, status=status.HTTP_200_OK)
-#     return Response({}, status.HTTP_400_BAD_REQUEST)
+@login_required(login_url='/user/login/')
+def home(request):
+    posts = Post.objects.all()
+    users = Customer.objects.all()
 
-##################
+    context = {'posts': posts, 'users': users, }
 
-# class PostList(generics.ListAPIView):
-#     permission_classes = [permissions.AllowAny]
-#     serializer_class = PostSerializer
-#     queryset = Post.objects.all()
+    return render(request, 'Home.html', context)
 
 
-# class PostDetail(generics.RetrieveAPIView):
-#     serializer_class = PostSerializer
+@login_required(login_url='/user/login/')
+def create_post(request, pk):
+    user = Customer.objects.get(id=pk)
+    form = CreatePostForm(initial={'user': user})
+    if request.method == 'POST':
+        if form.is_valid():
+            post = form.save()
+            post.title = form.cleaned_data.get('title')
+            post.contact_info = form.cleaned_data.get('contact_info')
+            post.price = form.cleaned_data.get('price')
+            post.description = form.cleaned_data.get('description')
+            
+            post.save()
+            
+            messages.success(request, "Post Created successfully")
+            
+            return redirect("home")
 
-#     def get_object(self, queryset=None, **kwargs):
-#         item = self.kwargs.get('pk')
-#         return get_object_or_404(Post, slug=item)
-
-
-# class CreatePost(generics.CreateAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
-
-
-# class AuthorPostDetail(generics.RetrieveAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-
-
-# class EditPost(generics.UpdateAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = PostSerializer
-#     queryset = Post.objects.all()
-
-
-# class DeletePost(generics.RetrieveDestroyAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = PostSerializer
-#     queryset = Post.objects.all()
+    context = {'create_post_form':form}
+    return render(request, 'CreatePost.html', context)

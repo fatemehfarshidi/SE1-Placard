@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
@@ -24,7 +24,7 @@ class CustomAccountManager(BaseUserManager):
     def create_user(self, email, username, first_name, password, **other_fields):
 
         if not email:
-            raise ValueError(_('You must provide an email address'))
+            raise ValueError(gettext_lazy('You must provide an email address'))
 
         email = self.normalize_email(email)
         user = self.model(email=email, username=username,
@@ -33,18 +33,20 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
+
 def upload_to(instance, filename):
     return 'posts/{filename}'.format(filename=filename)
 
+
 class Customer(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(gettext_lazy('email address'), unique=True)
     username = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
     date_created = models.DateTimeField(default=timezone.now)
     image = models.ImageField(
-        _("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
-    about = models.TextField(_(
+        gettext_lazy("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
+    about = models.TextField(gettext_lazy(
         'about'), max_length=500, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -52,7 +54,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'username'
-    # REQUIRED_FIELDS = ['username', 'email']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
     def __str__(self):
         return self.username
