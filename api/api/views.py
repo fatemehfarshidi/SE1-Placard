@@ -46,3 +46,14 @@ def create_post(request, pk):
 
     context = {'create_post_form': form}
     return render(request, 'CreatePost.html', context)
+
+
+def post_detail(request, pk):
+    post = Post.objects.get(id=pk)
+    return render(request, "postVisibility.html", {"post": post})
+    
+@login_required(login_url='login')
+def delete_post(request, pk):
+    post = Post.objects.get(id=pk)
+    post.delete()
+    return redirect('/api/')

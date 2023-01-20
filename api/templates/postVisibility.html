@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static '/css/postVisibility.css' %}">
+  </head>
+  <header>
+    <!-- {/* the logo in header */} -->
+    <div class="header_items">
+
+    <!-- Placard logo from media folder -->
+      <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo"/>
+
+      <!-- Buttons and links to other pages from home page -->
+      <button id="create_post_btn" onclick=""><a href="{% url 'api:create_post' user.id %}">ثبت آگهی</a></button>
+     
+      <button id="header-profile-btn" onclick="">
+        <h4>پلاکارد من</h4>
+        <img src="{% static 'media/ProfilePic.png' %}" class="header-profilepic"/>
+        <div class="sub-menu-wrap">
+          <div class="sub-menu">
+            <ul>
+              <li>
+                <h3>{{user.username}}</h3>
+                <hr>
+              </li>
+              <li>
+                <a href="{% url 'user:user_profile' %}" class="sub-menu-link">
+                  <img src="{% static 'media/account.png' %}"/>
+                  <p>پروفایل</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'user:logout' %}" class="sub-menu-link">
+                  <img src="{% static 'media/logout.png' %}" />
+                  <p>خروج</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </button>
+     </div>  
+
+    </div>
+    <br>
+    <br>
+  </header>
+    <body>
+
+    <!-- Background blobs  -->
+    <!-- <img src="{% static 'media/pic.jpg' %}" id="BG-img"/> -->
+
+    <div class="post-wraper">
+        <div class="post-img">
+            <img src="{% static 'media/nopicture.png' %}" />
+        </div>
+        <div class="post-info">
+            <div class="post-title">
+                <h1 id="title">{{post.title}}</h1>
+                <h5 id="time">{{post.date_created}}</h5>
+            </div>
+            <div class="post-detail">
+                <div class="post-quality">
+                    <h3>وضعیت</h3>
+                    <h4>{{post.status}}</h4>
+                </div>
+                <hr id ="hr-1">
+                <div class="post-price">
+                    <h3>قیمت</h3>
+                    <h4>
+                      {% if post.price == 0 %}
+                        رایگان
+                      {% else %}
+                        {{post.price}} تومان 
+                      {% endif %}
+                    </h4>
+                </div>
+                <hr id="hr-2">
+                <div class="contact-info">
+                  <h3>راه ارتباطی</h3>
+                  <h4>{{post.contact_info}}</h4>
+                </div>
+                <hr id="hr-3"/>
+                <div class="post-description">
+                    <h3>توضیحات</h3>
+                    <p id = "description">{{post.description}}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

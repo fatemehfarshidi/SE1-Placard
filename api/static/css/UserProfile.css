@@ -31,7 +31,6 @@ button{
 
 a{
     text-decoration: none;
-    color: black;
 }
 
 #create_post_btn {
@@ -137,8 +136,56 @@ a{
     margin-left: 8px;
     margin-top: 7px;
 }
+/* the User data part  */
+.profile-wrapper{
+    background-color: white;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #54A498;
+    width: 1080px;
+    margin-left: 15%;
+}
+.profile-wrapper h1{
+    text-align: center;
+    font-size: 48px;
+}
+.profile-wrapper h3{
+    text-align: right;
+    color: #8d8d8d;
+    font-size: 16px;
 
-/* post designs and positions  */
+    margin-right: 127px;
+    margin-bottom: 15px;
+}
+
+.BG-color{
+    background-color: #E3E8C0;
+    width: 1077px;
+    height: 170px;
+    border-radius: 10px 10px 0px 0px;
+    padding-top: 5%;
+    z-index: 1;
+}
+.user-img{
+    background-color: white;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 50%;
+    border-color: #EE7B30;
+    height: 200px;
+    width: 200px;
+    margin-left: 48px;
+    margin-top: -122px;
+    margin-bottom: 7%;
+    z-index: 15;
+}
+
+.user-img img{
+    height: 200px;
+    width: 200px;
+}
+
+/* post designs for list of items user uploaded */
 .post-container{
     display: initial;
 }
@@ -146,7 +193,6 @@ a{
 .post-design{
     position: relative;
     left: 14%;
-    top: 42%;
     width: calc(25% - 30px);
     height: calc(220px - 20px);
     background-color: white;
@@ -160,7 +206,6 @@ a{
     align-items: center;
     display: inline-block;
     text-align: center;
-    z-index: -1;
     padding: 1%;
     vertical-align: top;
 }
@@ -173,9 +218,14 @@ a{
     font-size: 20px;
 }
 
-.post-info-h4{
+.post-edit{
     float: left;
     font-size: 12px;
+    display: inline-grid;
+}
+.post-edit button{
+    background-color: transparent;
+    background-repeat: no-repeat;
 }
 
 .post-img{
@@ -188,4 +238,3 @@ a{
     width: 60px;
     height: 60px;
 }
-

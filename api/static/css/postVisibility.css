@@ -31,7 +31,6 @@ button{
 
 a{
     text-decoration: none;
-    color: black;
 }
 
 #create_post_btn {
@@ -139,53 +138,113 @@ a{
 }
 
 /* post designs and positions  */
-.post-container{
-    display: initial;
-}
-
-.post-design{
-    position: relative;
-    left: 14%;
-    top: 42%;
-    width: calc(25% - 30px);
-    height: calc(220px - 20px);
-    background-color: white;
-    border-color: #54A498;
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 3px;
-    margin: 15px;
-    box-sizing: border-box;
-    overflow: hidden;
-    align-items: center;
-    display: inline-block;
-    text-align: center;
+#BG-img{
     z-index: -1;
-    padding: 1%;
-    vertical-align: top;
+    position: fixed;
 }
-
-.post-info{
+.post-wraper{
+    z-index: 1000;
     position: relative;
-}
-.post-info a{
-    float: right;
-    font-size: 20px;
-}
-
-.post-info-h4{
-    float: left;
-    font-size: 12px;
+    background-color: white;
+    align-items: center;
+    display: -webkit-inline-box;
+    left: 18%;
+    margin-top: 64px;
+    padding: 20px;
+    text-align: right;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: teal;
+    border-width: 2px;
 }
 
 .post-img{
-    border-radius: 3px;
     border-style: solid;
-    padding: 30px;
-    margin-top: 43px;
+    padding: 50px;
+    margin-right: 15px;
 }
 .post-img img{
-    width: 60px;
-    height: 60px;
+    height: 120px;
+    width: 120px;
+    align-items: center;
+    display: flex;
+    margin: 100px;
 }
 
+.post-info{
+    padding: 15px;
+}
+.post-title{
+    margin-bottom: 20px;
+}
+
+.post-quality{
+    display: grid;
+    margin-top: 15px;
+    width: 450px;
+}
+
+.post-quality h3{
+    margin-left: 15px;
+    color: #8b8b8b;
+    margin-right: 15px;
+}
+
+.post-quality h4{
+    float : left;
+    margin-left: 15px;
+    position: absolute;
+}
+
+#hr-1{
+    margin-top: 15px;
+    color: #8b8b8b;
+}
+.post-price{
+    display: grid;
+    margin-top: 15px;
+}
+.post-price h3{
+    margin-left: 15px;
+    color: #8b8b8b;
+    margin-right: 15px;
+}
+.post-price h4{
+    float : left;
+    margin-left: 15px;
+    position: absolute;
+}
+#hr-2{
+    margin-top: 15px;
+    color: #8b8b8b;
+}
+
+.contact-info{
+    display: grid;
+    margin-top: 15px;
+}
+.contact-info h3{
+    margin-left: 15px;
+    color: #8b8b8b;
+    margin-right: 15px;
+}
+.contact-info h4{
+    float : left;
+    margin-left: 15px;
+    position: absolute;
+}
+#hr-3{
+    margin-top: 15px;
+    color: #8b8b8b;
+}
+
+.post-description{
+    margin-top: 15px;
+    margin-right: 15px;
+}
+.post-description p {
+    width: 405px;
+    height: 150px;
+    margin-left: 15px;
+    margin-top: 10px;
+}

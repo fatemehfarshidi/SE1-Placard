@@ -17,25 +17,23 @@ class Post(models.Model):
             return super().get_queryset()
 
     TYPE_CHOICES = [
-        ('Borrow', 'Borrow'),
-        ('Sell', 'Sell'),
-        ('Collab', 'Collab'),
+        ('نو', 'نو'),
+        ('در حد نو', 'در حد نو'),
+        ('کارکرده', 'کارکرده'),
     ]
 
-    CONTACT_CHOICES = [
-        ('Phone number', 'Phone number'),
-        ('Telegram', 'Telegram'),
-        ('Email', 'Email'),
-        ('Other', 'Other'),
-    ]
+    STATUS_CHOICES = (
+        ('فروش رفته', 'فروش رفته'),
+        ('در دسترس', 'در دسترس'),
+    )
 
     title = models.CharField(max_length=250)
     type = models.CharField(
-        max_length=20, choices=TYPE_CHOICES, default='Sell')
+        max_length=20, choices=TYPE_CHOICES, default='کارکرده')
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='فروش رفته')
     price = models.IntegerField(default=0)
     description = models.TextField(null=True, blank=True)
-    contact_type = models.CharField(
-        max_length=20, choices=CONTACT_CHOICES, default='Phone number')
     contact_info = models.CharField(max_length=250)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from api.decorators import unauthenticated_user, allowed_users, admin_only
 from .forms import RegistrationForm
 from .models import Customer
+from api.models import Post
 
 
 @unauthenticated_user
@@ -31,27 +32,7 @@ def register_view(request):
     context = {"register_form": form}
     return render(request=request, template_name="Register.html", context=context)
 
-
-# @unauthenticated_user
-# def login_view(request):
-
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         user = authenticate(request, username=username, password=password)
-
-#         if user is not None:
-#             login(request, user)
-#             return redirect('/api/')
-#         else:
-#             messages.info(request, 'Username OR password is incorrect')
-
-#     context = {}
-#     return render(request, 'Login.html', context)
-
-
-# def logout_user(request):
-#     logout(request)
-#     messages.success(request, "You have successfully logged out.")
-#     return redirect("login")
+@login_required(login_url='/user/login/')
+def user_profile(request):
+    posts = Post.objects.filter(user=request.user)
+    return render(request=request, template_name="UserProfile.html", context={'posts': posts})

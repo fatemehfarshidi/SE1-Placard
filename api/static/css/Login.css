@@ -24,6 +24,7 @@ body{
 
 .header-logo{
     justify-content: right;
+    z-index: 10;
 }
 
 .Login-wrapper{
