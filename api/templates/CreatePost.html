@@ -8,27 +8,7 @@
   <header>
     <!-- {/* the logo in header */} -->
     <div class="header-logo">
-      <svg width="64" height="64" viewBox="0 0 87 87" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1H86V44.9651H1V1Z" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linejoin="round"/>
-      <path d="M39.5018 45.1752H47.4735V85.9999H39.5018V45.1752Z" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linejoin="round"/>
-      <path d="M8.1301 7.92542H78.8969V38.1984H8.1301V7.92542Z" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linejoin="round"/>
-      <path d="M78.4718 26.5582H66.2081" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M66.1492 8.18945V37.6538" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M53.7675 8.56104L53.8855 37.3885L53.7675 8.56104Z" fill="black"/>
-      <path d="M53.7675 8.56104L53.8855 37.3885" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M45.2423 15.6947L45.3329 34.0473" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M45.2423 19.5375L45.3329 37.8903" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M45.3045 15.3934L65.7139 8.43066" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M33.6309 15.9613L33.9059 37.4211" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M26.679 23.5443L26.7706 38.0709" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M29.1472 38.1964H20.7109" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12.6756 26.7872H20.6393" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12.4528 34.4675H20.6152" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M20.6442 26.8104V34.4716" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M70.123 30.3558L74.2544 30.356L70.123 30.3558Z" fill="black"/>
-      <path d="M70.123 30.3558L74.2544 30.356" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M72.3229 32.8382L72.3228 32.8381" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <img src="{% static 'media/PlacardLogo.svg' %}"/>
     </div>
   </header>
   
@@ -48,6 +28,15 @@
 
               <label id="price">قیمت محصول</label>
               {{create_post_form.price}}
+
+              <label id="quality">وضعیت کالا</label>
+              <label class="quality-form">
+                <select>
+                  {% for choice in create_post_form.type %}
+                  <option value={{choice.data.value}}>{{ choice.choice_label }}</option>
+                  {% endfor %}
+                </select>
+              </label>
 
               <label id="description">توضیحات</label>
               {{create_post_form.description}}

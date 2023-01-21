@@ -6,7 +6,7 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'type', 'price', 'description', 'status',
+        fields = ('title', 'type', 'price', 'description',
                   'contact_info', 'image', 'slug', 'date_created', 'user')
         read_only_fields = ('user', 'slug', 'date_created')
 
@@ -48,5 +48,8 @@ class CreatePostForm(forms.ModelForm):
             {'placeholder': '   قیمت به تومان    '})
         self.fields['description'].widget.attrs.update({
             'id': 'description-input',
-            'placeholder': ' جزئیات و نکات جالب توجه آگهی خود را کامل و دقیق بنویسید. نوشتن شمارهٔ تماس در متن آگهی مجاز نیست. حتماً به ساعات پاسخگویی خود اشاره کنید   '
+            'cols': "65",
+            'rows': "5",
+            'placeholder': ' جزئیات و نکات جالب توجه آگهی خود را کامل و دقیق بنویسید. نوشتن شمارهٔ تماس در متن آگهی مجاز نیست. حتماً به ساعات پاسخگویی خود اشاره کنید   ',
+
         })

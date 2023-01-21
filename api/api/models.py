@@ -22,23 +22,16 @@ class Post(models.Model):
         ('کارکرده', 'کارکرده'),
     ]
 
-    STATUS_CHOICES = (
-        ('فروش رفته', 'فروش رفته'),
-        ('در دسترس', 'در دسترس'),
-    )
-
     title = models.CharField(max_length=250)
     type = models.CharField(
         max_length=20, choices=TYPE_CHOICES, default='کارکرده')
-    status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='فروش رفته')
     price = models.IntegerField(default=0)
     description = models.TextField(null=True, blank=True)
     contact_info = models.CharField(max_length=250)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     image = models.ImageField(
-        gettext_lazy("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
+        gettext_lazy("Image"), upload_to=upload_to, default='media/nopicture.png', null=True)
     slug = models.SlugField(
         max_length=250, unique=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)

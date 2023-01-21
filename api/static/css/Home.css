@@ -160,7 +160,6 @@ a{
     align-items: center;
     display: inline-block;
     text-align: center;
-    z-index: -1;
     padding: 1%;
     vertical-align: top;
 }
