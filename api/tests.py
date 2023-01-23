@@ -11,11 +11,11 @@ class PlacardTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Firefox()
-        super(TodoFormTest, self).setUp()
+        super(PlacardTest, self).setUp()
 
     def tearDown(self):
         self.selenium.quit()
-        super(TodoFormTest, self).tearDown()
+        super(PlacardTest, self).tearDown()
 
     def test_sign_up(self):
         self.selenium.get('http://127.0.0.1:8000/user/register')
