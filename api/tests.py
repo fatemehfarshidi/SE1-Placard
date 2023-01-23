@@ -7,7 +7,7 @@ import string
 
 
 # Create your tests here.
-class TodoFormTest(LiveServerTestCase):
+class PlacardTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Firefox()
