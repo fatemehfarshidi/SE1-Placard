@@ -22,18 +22,18 @@ class Post(models.Model):
         ('کارکرده', 'کارکرده'),
     ]
 
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=50)
     type = models.CharField(
         max_length=20, choices=TYPE_CHOICES, default='کارکرده')
     price = models.IntegerField(default=0)
-    description = models.TextField(null=True, blank=True)
-    contact_info = models.CharField(max_length=250)
+    description = models.TextField(max_length=200, null=True, blank=True)
+    contact_info = models.CharField(max_length=30)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     image = models.ImageField(
         gettext_lazy("Image"), upload_to=upload_to, default='media/nopicture.png', null=True)
     slug = models.SlugField(
-        max_length=250, unique=True, blank=True)
+        max_length=50, unique=True, blank=True)
     date_created = models.DateTimeField(default=timezone.now)
 
     objects = models.Manager()  # default manager

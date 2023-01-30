@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Vazirmatn', sans-serif;
 }
 
 body{
@@ -145,6 +146,7 @@ a{
     border-color: #54A498;
     width: 1080px;
     margin-left: 15%;
+    margin-bottom: 15px;
 }
 .profile-wrapper h1{
     text-align: center;

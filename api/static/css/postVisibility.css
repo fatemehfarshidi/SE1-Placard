@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Vazirmatn', sans-serif;
 }
 
 body{
@@ -150,6 +151,7 @@ a{
     display: -webkit-inline-box;
     left: 18%;
     margin-top: 64px;
+    margin-bottom: 64px;
     padding: 20px;
     text-align: right;
     border-radius: 8px;
@@ -176,6 +178,12 @@ a{
 }
 .post-title{
     margin-bottom: 20px;
+    display: inline-block;
+}
+.post-title h1{
+    width: 400px;
+    float: right;
+    position: relative;
 }
 
 .post-quality{

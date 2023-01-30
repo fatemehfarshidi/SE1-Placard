@@ -4,13 +4,21 @@
 <html>
   <head>
     <link rel="stylesheet" href="{% static '/css/postVisibility.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200&display=swap" rel="stylesheet">
   </head>
   <header>
     <!-- {/* the logo in header */} -->
     <div class="header_items">
 
     <!-- Placard logo from media folder -->
-      <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo"/>
+    <a href="{% url 'api:home' %}">
+      <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo" />
+    </a>  
 
       <!-- Buttons and links to other pages from home page -->
       <button id="create_post_btn" onclick=""><a href="{% url 'api:create_post' user.id %}">ثبت آگهی</a></button>
