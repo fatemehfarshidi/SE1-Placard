@@ -1,9 +1,11 @@
 from django.db import models
-# from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy
 from django.utils.text import slugify
+from django.contrib.humanize.templatetags import humanize
+# from googletrans import Translator
+# from google_trans_new import google_translator
 
 
 def upload_to(instance, filename):
@@ -32,8 +34,7 @@ class Post(models.Model):
                              on_delete=models.CASCADE)
     image = models.ImageField(
         gettext_lazy("Image"), upload_to=upload_to, default='media/nopicture.png', null=True)
-    slug = models.SlugField(
-        max_length=50, unique=True, blank=True)
+    slug = models.SlugField(max_length=50, blank=True)
     date_created = models.DateTimeField(default=timezone.now)
 
     objects = models.Manager()  # default manager
@@ -48,3 +49,18 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_date(self):
+        # translator = Translator(service_urls=['translate.googleapis.com'])
+        # date = humanize.naturaltime(self.date_created)
+        # date_fa = translator.translate(date, dest='fa', src='en').text()
+        # return date_fa
+
+        # translator = google_translator()
+        # date = humanize.naturaltime(self.date_created)
+        # date_fa = translator.translate(date, lang_src='en', lang_tgt='fa')
+        # return date_fa
+        return humanize.naturaltime(self.date_created)
+
+    def get_price(self):
+        return humanize.intcomma(self.price)

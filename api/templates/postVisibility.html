@@ -67,12 +67,12 @@
         <div class="post-info">
             <div class="post-title">
                 <h1 id="title">{{post.title}}</h1>
-                <h5 id="time">{{post.date_created}}</h5>
+                <h5 id="time">{{post.get_date}}</h5>
             </div>
             <div class="post-detail">
                 <div class="post-quality">
                     <h3>وضعیت</h3>
-                    <h4>{{post.type}}</h4>
+                    <h4>{{post.get_type_display}}</h4>
                 </div>
                 <hr id ="hr-1">
                 <div class="post-price">
@@ -81,7 +81,7 @@
                       {% if post.price == 0 %}
                         رایگان
                       {% else %}
-                        {{post.price}} تومان 
+                        {{post.get_price}} تومان 
                       {% endif %}
                     </h4>
                 </div>
