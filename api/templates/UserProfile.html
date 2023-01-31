@@ -71,17 +71,32 @@
         <!-- post appearance for lists of posts uploaded by user-->
         <div class="post-container">
           {% for post in posts %}
-            <div class="post-design">
-              <div class="post-info">
-                <div class="post-edit">
-                  <button onclick=""><a href="{% url 'api:delete_post' post.id %}">حذف آگهی</a></button>
+            {% if post.post_type == 'StudyBuddy' %}
+              <div class="post-design-sb">
+                <div class="post-info">
+                  <div class="post-edit">
+                    <button onclick=""><a href="{% url 'api:delete_post' post.id %}">حذف آگهی</a></button>
+                  </div>
+                  <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:10}} </a>
                 </div>
-                <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:10}} </a>
+                <div class="post-img">
+                  <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
+                </div>
               </div>
-              <div class="post-img">
-                <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
+            {% else %}
+              <div class="post-design">
+                <div class="post-info">
+                  <div class="post-edit">
+                    <button onclick=""><a href="{% url 'api:delete_post' post.id %}">حذف آگهی</a></button>
+                  </div>
+                  <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:10}} </a>
+                </div>
+                <div class="post-img">
+                  <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
+                </div>
               </div>
-            </div>
+            {% endif %}
+            
             {% if forloop.counter|divisibleby:"3" %}
               <br />
             {% endif %}

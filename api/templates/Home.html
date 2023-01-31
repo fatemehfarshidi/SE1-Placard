@@ -18,7 +18,7 @@
     <!-- Placard logo from media folder -->
       <a href="{% url 'api:home' %}">
         <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo" />
-      </a>  
+      </a>
 
       <!-- Buttons and links to other pages from home page -->
       <button id="create_post_btn" onclick=""><a href="{% url 'api:create_post' user.id %}">ثبت آگهی</a></button>
@@ -59,24 +59,39 @@
       <!-- post appearance -->
       <div class="post-container">
         {% for post in posts %}
-        <div class="post-design">
-          <div class="post-info">
-            <div class="post-info-h4">
-              <h4>
-                {% if post.price == 0 %}
-                  رایگان
-                {% else %}
-                  {{post.get_price}} تومان 
-                {% endif %}
-              </h4>
-              <h4>{{post.get_date}}</h4>
+          {% if post.post_type == 'StudyBuddy' %}
+            <div class="post-design-sb">
+              <div class="post-info">
+                <div class="post-info-h4">
+                  <h4>
+                    {% if post.price == 0 %}
+                      رایگان
+                    {% else %}
+                      {{post.get_price}} تومان 
+                    {% endif %}
+                  </h4>
+                  <h4>{{post.get_date}}</h4>
+                </div>
+                <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:14}} </a>
+              </div>
+              <div class="post-img">
+                <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
+              </div>
             </div>
-            <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:14}} </a>
-          </div>
-          <div class="post-img">
-            <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
-          </div>
-        </div>
+          {% else %}
+            <div class="post-design">
+              <div class="post-info">
+                <div class="post-info-h4">
+                  <h4>{{post.get_date}}</h4>
+                </div>
+                <a id="title" href="{% url 'api:post_detail' post.id %}"> {{post.title|truncatechars:14}} </a>
+              </div>
+              <div class="post-img">
+                <img src="{% static 'media/nopicture.png' %}" alt="post picture"/>
+              </div>
+            </div>
+          {% endif %}
+        
         {% if forloop.counter|divisibleby:"3" %}
           <br />
         {% endif %}

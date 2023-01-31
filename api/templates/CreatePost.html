@@ -34,20 +34,19 @@
               <label id="contact_info">راه ارتباطی</label>
               {{create_post_form.contact_info}}
 
-              <label id="price">قیمت محصول</label>
+              <label id="price">قیمت (به تومان)</label>
+              <h5>* درصورت انتخاب گزینه "تیم سازی" از این بخش عبور کنید *</h5>
               {{create_post_form.price}}
-
-              <label id="quality">وضعیت کالا</label>
-              <label class="quality-form">
-                <select>
-                  {% for choice in create_post_form.type %}
-                  <option value={{choice.data.value}}>{{ choice.choice_label }}</option>
-                  {% endfor %}
-                </select>
-              </label>
 
               <label id="description">توضیحات</label>
               {{create_post_form.description}}
+
+              <label id="quality">نوع آگهی</label>
+              <select class="quality-form" name="post_type">
+                {% for choice in create_post_form.post_type %}
+                <option value={{choice.data.value}}>{{ choice.choice_label }}</option>
+                {% endfor %}
+              </select>
 
               <button id = "btn" type="submit">ثبت آگهی</button>
 

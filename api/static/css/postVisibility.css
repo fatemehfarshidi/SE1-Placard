@@ -160,6 +160,23 @@ a{
     border-width: 2px;
 }
 
+.post-wraper-sb{
+    z-index: 1000;
+    position: relative;
+    background-color: white;
+    align-items: center;
+    display: -webkit-inline-box;
+    left: 18%;
+    margin-top: 64px;
+    margin-bottom: 64px;
+    padding: 20px;
+    text-align: right;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #EE7B30;
+    border-width: 2px;
+}
+
 .post-img{
     border-style: solid;
     padding: 50px;

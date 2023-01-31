@@ -15,9 +15,12 @@ from django.shortcuts import redirect
 @login_required(login_url='/user/login/')
 def home(request):
     posts = Post.objects.all()
+    sell_posts = Post.objects.filter(post_type='Sell')
+    sb_posts = Post.objects.filter(post_type='StudyBuddy')
     users = Customer.objects.all()
 
-    context = {'posts': posts, 'users': users, }
+    context = {'posts': posts, 'users': users,
+               'sell_posts': sell_posts, 'sb_posts': sb_posts}
 
     return render(request, 'Home.html', context)
 
@@ -33,11 +36,13 @@ def create_post(request, pk):
     contact_info = request.POST.get('contact_info')
     price = request.POST.get('price')
     description = request.POST.get('description')
+    post_type = request.POST.get('post_type')
 
     if request.method == 'POST':
         Post(
             title=title,
             contact_info=contact_info,
+            post_type=post_type,
             price=price,
             description=description,
             user=user
@@ -51,7 +56,8 @@ def create_post(request, pk):
 def post_detail(request, pk):
     post = Post.objects.get(id=pk)
     return render(request, "postVisibility.html", {"post": post})
-    
+
+
 @login_required(login_url='login')
 def delete_post(request, pk):
     post = Post.objects.get(id=pk)

@@ -18,15 +18,21 @@ class Post(models.Model):
         def get_queryset(self):
             return super().get_queryset()
 
+    STATUS_CHOICES = [
+        ('A', 'نو'),
+        ('B', 'در حد نو'),
+        ('C', 'کارکرده'),
+    ]
+
     TYPE_CHOICES = [
-        ('نو', 'نو'),
-        ('در حد نو', 'در حد نو'),
-        ('کارکرده', 'کارکرده'),
+        ('Sell', 'خرید و فروش'),
+        ('StudyBuddy', 'تیم سازی '),
     ]
 
     title = models.CharField(max_length=50)
-    type = models.CharField(
-        max_length=20, choices=TYPE_CHOICES, default='کارکرده')
+    post_type = models.CharField(
+        max_length=20, choices=TYPE_CHOICES, default='Sell')
+    # status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='A')
     price = models.IntegerField(default=0)
     description = models.TextField(max_length=200, null=True, blank=True)
     contact_info = models.CharField(max_length=30)

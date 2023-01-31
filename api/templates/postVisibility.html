@@ -16,9 +16,9 @@
     <div class="header_items">
 
     <!-- Placard logo from media folder -->
-    <a href="{% url 'api:home' %}">
-      <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo" />
-    </a>  
+      <a href="{% url 'api:home' %}">
+        <img class = "logo-img" src="{% static 'media/PlacardLogo.svg' %}" alt="Placard Logo" />
+      </a>  
 
       <!-- Buttons and links to other pages from home page -->
       <button id="create_post_btn" onclick=""><a href="{% url 'api:create_post' user.id %}">ثبت آگهی</a></button>
@@ -60,7 +60,8 @@
     <!-- Background blobs  -->
     <!-- <img src="{% static 'media/pic.jpg' %}" id="BG-img"/> -->
 
-    <div class="post-wraper">
+    {% if post.post_type == 'StudyBuddy' %}
+      <div class="post-wraper-sb">
         <div class="post-img">
             <img src="{% static 'media/nopicture.png' %}" />
         </div>
@@ -71,11 +72,13 @@
             </div>
             <div class="post-detail">
                 <div class="post-quality">
-                    <h3>وضعیت</h3>
-                    <h4>{{post.get_type_display}}</h4>
+                    <h3>نوع آگهی</h3>
+                    <h4>{{post.get_post_type_display}}</h4>
                 </div>
+                
+                {% if post.get_post_type_display == "خرید و فروش" %}
                 <hr id ="hr-1">
-                <div class="post-price">
+                  <div class="post-price">
                     <h3>قیمت</h3>
                     <h4>
                       {% if post.price == 0 %}
@@ -84,7 +87,9 @@
                         {{post.get_price}} تومان 
                       {% endif %}
                     </h4>
-                </div>
+                  </div>
+                {% endif %}
+                
                 <hr id="hr-2">
                 <div class="contact-info">
                   <h3>راه ارتباطی</h3>
@@ -99,6 +104,52 @@
             </div>
         </div>
     </div>
+    {% else %}
+      <div class="post-wraper">
+        <div class="post-img">
+            <img src="{% static 'media/nopicture.png' %}" />
+        </div>
+        <div class="post-info">
+            <div class="post-title">
+                <h1 id="title">{{post.title}}</h1>
+                <h5 id="time">{{post.get_date}}</h5>
+            </div>
+            <div class="post-detail">
+                <div class="post-quality">
+                    <h3>نوع آگهی</h3>
+                    <h4>{{post.get_post_type_display}}</h4>
+                </div>
+                
+                {% if post.get_post_type_display == "خرید و فروش" %}
+                <hr id ="hr-1">
+                  <div class="post-price">
+                    <h3>قیمت</h3>
+                    <h4>
+                      {% if post.price == 0 %}
+                        رایگان
+                      {% else %}
+                        {{post.get_price}} تومان 
+                      {% endif %}
+                    </h4>
+                  </div>
+                {% endif %}
+                
+                <hr id="hr-2">
+                <div class="contact-info">
+                  <h3>راه ارتباطی</h3>
+                  <h4>{{post.contact_info}}</h4>
+                </div>
+                <hr id="hr-3"/>
+                <div class="post-description">
+                    <h3>توضیحات</h3>
+                    <p id = "description">{{post.description}}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
 
     </body>
 

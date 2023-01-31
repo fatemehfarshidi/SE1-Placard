@@ -6,7 +6,7 @@ class CreatePostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'type', 'price', 'description',
+        fields = ('title', 'price', 'description', 'post_type',
                   'contact_info', 'image', 'slug', 'date_created', 'user')
         read_only_fields = ('user', 'slug', 'date_created')
 
