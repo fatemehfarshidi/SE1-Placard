@@ -42,11 +42,13 @@
               {{create_post_form.description}}
 
               <label id="quality">نوع آگهی</label>
-              <select class="quality-form" name="post_type">
-                {% for choice in create_post_form.post_type %}
-                <option value={{choice.data.value}}>{{ choice.choice_label }}</option>
-                {% endfor %}
-              </select>
+              <label class="quality-form">
+                <select name="post_type">
+                  {% for choice in create_post_form.post_type %}
+                  <option value={{choice.data.value}}>{{ choice.choice_label }}</option>
+                  {% endfor %}
+                </select>
+              </label>
 
               <button id = "btn" type="submit">ثبت آگهی</button>
 
